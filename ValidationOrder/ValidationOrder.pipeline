@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="Native REST" xsi:type="con:NativeRestBindingType"/>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-a2fdb21.3fe0c265.0.15e603c86bc.N7f08">
+            <con:stage id="_StageId-a2fdb21.3fe0c265.0.15e603c86bc.N7f06" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true">
+                        <con2:id>_ActionId-a2fdb21.3fe0c265.0.15e603c86bc.N7e0c</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>"rq201708081200"</con2:xqueryText>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-a2fdb21.3fe0c265.0.15e603c86bc.N7f07">
+            <con:stage id="_StageId-a2fdb21.3fe0c265.0.15e603c86bc.N7f05" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Pipeline Pair Node1">
+                <con:request>request-a2fdb21.3fe0c265.0.15e603c86bc.N7f08</con:request>
+                <con:response>response-a2fdb21.3fe0c265.0.15e603c86bc.N7f07</con:response>
+            </con:pipeline-node>
+            <con:route-node name="RouteNode1" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                <con:context/>
+                <con:actions>
+                    <con1:route>
+                        <con2:id>_ActionId-a2fdb21.3fe0c265.0.15e603c86bc.N7dd9</con2:id>
+                        <con1:service ref="ValidationOrder/coherenceGet" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>Get</con1:operation>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+        <con:partner-links>
+            <con:partner-link>
+                <con:service ref="ValidationOrder/coherencePut" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            </con:partner-link>
+            <con:partner-link>
+                <con:service ref="ValidationOrder/coherenceRemove" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            </con:partner-link>
+        </con:partner-links>
+    </con:router>
+</con:pipelineEntry>
